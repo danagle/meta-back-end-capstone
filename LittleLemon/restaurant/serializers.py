@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['url', 'username', 'email', 'groups']
 
 
-class MenuItemSerializer(serializers.ModelSerializer):
+class MenuSerializer(serializers.ModelSerializer):
     class Meta:
         model = Menu
         fields = ['title', 'price', 'inventory']
