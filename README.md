@@ -6,6 +6,7 @@ This is part of the [Meta Back-End Developer Professional Certificate](https://w
 Setup the virtual environment and install the required packages:
 ```bash
 cd /path/to/the/project
+
 pipenv install
 ```
 
@@ -38,7 +39,7 @@ python3 manage.py runserver
 ```
 
 ## Extras
-The `sample_code.py` demonstrates the use of the following API endpoints:
+The `sample_code.py` file demonstrates the use of the following API endpoints:
  - /auth/users
  - /auth/users/me/
  - /auth/token/login/
@@ -47,5 +48,7 @@ The `sample_code.py` demonstrates the use of the following API endpoints:
 
 To run:
 ```bash
+cd /path/to/the/project
+
 python3 sample_code.py
 ```
