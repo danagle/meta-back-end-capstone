@@ -2,8 +2,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from rest_framework import generics, permissions, viewsets
 
-from .models import Booking, Menu
-from .serializers import BookingSerializer, MenuSerializer, UserSerializer
+from .models import Booking, MenuItem
+from .serializers import BookingSerializer, MenuItemSerializer, UserSerializer
 
 
 def index(request):
@@ -16,14 +16,14 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-class MenuView(generics.ListCreateAPIView):
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer
+class MenuItemView(generics.ListCreateAPIView):
+    queryset = MenuItem.objects.all()
+    serializer_class = MenuItemSerializer
 
 
 class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer
+    queryset = MenuItem.objects.all()
+    serializer_class = MenuItemSerializer
 
 
 class BookingViewSet(viewsets.ModelViewSet):
