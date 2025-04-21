@@ -5,7 +5,7 @@ import json
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from restaurant.models import Booking, Menu
+from restaurant.models import Booking, MenuItem
 
 ###
 # Tests using django.test.TestCase
@@ -15,8 +15,8 @@ class MenuView_Tests(TestCase):
     def setUp(self):
         self.client = Client()
 
-        self.menu1 = Menu.objects.create(title='Pasta', price=12.50, inventory=10)
-        self.menu2 = Menu.objects.create(title='Burger', price=9.99, inventory=20)
+        self.menu1 = MenuItem.objects.create(title='Pasta', price=12.50, inventory=10)
+        self.menu2 = MenuItem.objects.create(title='Burger', price=9.99, inventory=20)
 
         self.list_url = reverse('menu-list')
 
@@ -41,14 +41,14 @@ class MenuView_Tests(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(Menu.objects.count(), 3)
-        self.assertEqual(Menu.objects.latest('id').title, 'Salad')
+        self.assertEqual(MenuItem.objects.count(), 3)
+        self.assertEqual(MenuItem.objects.latest('id').title, 'Salad')
 
 
 class SingleMenuItemView_Tests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.menu = Menu.objects.create(title='Pizza', price=15.99, inventory=5)
+        self.menu = MenuItem.objects.create(title='Pizza', price=15.99, inventory=5)
         self.detail_url = reverse('menu-detail', args=[self.menu.id])  # Ensure your URL name matches
 
     def test_get_single_menu_item(self):
@@ -88,7 +88,7 @@ class SingleMenuItemView_Tests(TestCase):
     def test_delete_menu_item(self):
         response = self.client.delete(self.detail_url)
         self.assertEqual(response.status_code, 204)
-        self.assertFalse(Menu.objects.filter(id=self.menu.id).exists())
+        self.assertFalse(MenuItem.objects.filter(id=self.menu.id).exists())
 
 
 class BookingViewSet_Tests(TestCase):
@@ -166,8 +166,8 @@ class BookingViewSet_Tests(TestCase):
 
 class MenuViewTests(APITestCase):
     def setUp(self):
-        self.menu1 = Menu.objects.create(title='Pasta', price=12.50, inventory=10)
-        self.menu2 = Menu.objects.create(title='Burger', price=9.99, inventory=20)
+        self.menu1 = MenuItem.objects.create(title='Pasta', price=12.50, inventory=10)
+        self.menu2 = MenuItem.objects.create(title='Burger', price=9.99, inventory=20)
         self.list_url = reverse('menu-list')  
 
     def test_get_menu_list(self):
@@ -185,13 +185,13 @@ class MenuViewTests(APITestCase):
         }
         response = self.client.post(self.list_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Menu.objects.count(), 3)
-        self.assertEqual(Menu.objects.last().title, 'Salad')
+        self.assertEqual(MenuItem.objects.count(), 3)
+        self.assertEqual(MenuItem.objects.last().title, 'Salad')
 
 
 class SingleMenuItemViewTests(APITestCase):
     def setUp(self):
-        self.menu_item = Menu.objects.create(title='Pizza', price=15.99, inventory=5)
+        self.menu_item = MenuItem.objects.create(title='Pizza', price=15.99, inventory=5)
         self.detail_url = reverse('menu-detail', args=[self.menu_item.id])
 
     def test_get_single_menu_item(self):
@@ -220,7 +220,7 @@ class SingleMenuItemViewTests(APITestCase):
     def test_delete_menu_item(self):
         response = self.client.delete(self.detail_url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertFalse(Menu.objects.filter(id=self.menu_item.id).exists())
+        self.assertFalse(MenuItem.objects.filter(id=self.menu_item.id).exists())
 
 
 class BookingViewSetTests(APITestCase):

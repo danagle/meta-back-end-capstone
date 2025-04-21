@@ -1,5 +1,5 @@
 from django.test import TestCase
-from restaurant.models import Booking, Menu
+from restaurant.models import Booking, MenuItem
 
 
 class BookingModelTests(TestCase):
@@ -17,9 +17,9 @@ class BookingModelTests(TestCase):
         self.assertEqual(str(self.booking), 'Ada Lovelace')
 
 
-class MenuModelTests(TestCase):
+class MenuItemModelTests(TestCase):
     def setUp(self):
-        self.menu = Menu.objects.create(
+        self.menu = MenuItem.objects.create(
             title='Spaghetti',
             price=10.49,
             inventory=25
